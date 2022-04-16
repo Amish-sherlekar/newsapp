@@ -1,23 +1,27 @@
 import React from 'react';
-import { View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import NewsScreen from '../Screens/NewsScreen';
 import ExploreScreen from '../Screens/ExploreScreen';
-import ExploreScreen from '../Screens/ExploreScreen';
+import BusinessScreen from '../NewsScreen/Business';
+import EntertainmentScreen from '../NewsScreen/Entertainment';
+import HealthScreen from '../NewsScreen/Health';
+import ScienceScreen from '../NewsScreen/Science';
+import SportsScreen from '../NewsScreen/Sports';
+import TechnologyScreen from '../NewsScreen/Technology';
 
 const Stack = createStackNavigator();
 
 const navigation = () => {
   return (
-    <Stack.Navigator
-        initialRouteName="Home"
-        headerMode="screen"
-        screenOptions={{
-        headerTintColor: 'white',
-        headerStyle: { backgroundColor: 'tomato' },
-    }}>
+    <Stack.Navigator>
        <Stack.Screen name="NewsScreen" component={NewsScreen} />
-       <Stack.Screen name="SortScreen" component={ExploreScreen} />
+       <Stack.Screen name="Home" component={ExploreScreen} />
+       <Stack.Screen name="Business" component={BusinessScreen} />
+       <Stack.Screen name="Entertainment" component={EntertainmentScreen} />
+       <Stack.Screen name="Health" component={HealthScreen} />
+       <Stack.Screen name="Science" component={ScienceScreen} />
+       <Stack.Screen name="Sports" component={SportsScreen} />
+       <Stack.Screen name="Technology" component={TechnologyScreen} />
     </Stack.Navigator>
   );
 }

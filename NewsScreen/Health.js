@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 
-export default class Health extends Component {
+export default class HealthScreen extends Component {
   render() {
     return (
       <View>

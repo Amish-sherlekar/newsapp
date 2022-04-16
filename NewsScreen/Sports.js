@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 
-export default class Sports extends Component {
+export default class SportsScreen extends Component {
   render() {
     return (
       <View>
