@@ -11,7 +11,8 @@ import {
   ScrollView,
   Dimensions,
   Platform,
-  StatusBar
+  StatusBar,
+  ImageBackground
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { NewsCategory, NewsSources } from "../NewsProps";
@@ -21,20 +22,37 @@ const { width, height } = Dimensions.get("window");
 // Platform.isPad
 
 export default class ExploreScreen extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <View>
-        {/* <Ionicons name="menu" size={50} /> */}
+
         <ScrollView>
-          <StatusBar/>
-          <Text style={styles.categoryText}>Category</Text>
+          <StatusBar />
+          <View>
+            {/* <TouchableOpacity onPress={()=>{
+              this.props.navigation.navigate('Business')
+            }}>
+            <Ionicons name="menu" size={30} />
+            </TouchableOpacity> */}
+            <Text style={styles.categoryText}>Category</Text>
+          </View>
           <FlatList
             keyExtractor={(element) => element.id}
             data={NewsCategory}
             renderItem={(element) => {
               return (
                 <View style={{ marginTop: 100, marginLeft: 30 }}>
-                  <TouchableOpacity style={styles.cardContainer}>
+                  <TouchableOpacity 
+                  style={styles.cardContainer}
+                  onPress={() =>{
+                    this.props.navigation.navigate(element.item.type)
+                  }}
+                  >
                     <Image
                       source={{ uri: element.item.image }}
                       style={styles.imageStyle}
@@ -54,7 +72,12 @@ export default class ExploreScreen extends Component {
             renderItem={(element) => {
               return (
                 <View style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity style={styles.sourceCardContainer}>
+                  <TouchableOpacity 
+                  style={styles.sourceCardContainer}
+                  onPress={() =>{
+                    this.props.navigation.navigate(element.item.id)
+                  }}
+                  >
                     <Image
                       source={{ uri: element.item.pic }}
                       style={styles.sourceImageStyle}
@@ -116,7 +139,7 @@ const styles = StyleSheet.create({
   },
   sourceTextStyle: {
     marginLeft: 20,
-    fontSize: 40,
+    fontSize: 35,
     fontFamily: "Fira Code iScript",
     // fontWeight: "900",
     marginTop: 10,
@@ -130,7 +153,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   categoryText: {
-    paddingTop: 10,
+    paddingTop: -100,
     marginLeft: 30,
     fontSize: RFValue(30),
     fontFamily: 'Fira Code iScript',

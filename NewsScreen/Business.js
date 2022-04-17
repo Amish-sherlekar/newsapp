@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 
-export default class BusinessScreen extends Component {
+export default class BusinessScrenn extends Component {
   render() {
     return (
       <View>

@@ -1,77 +1,68 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, ScrollView, FlatList, Dimensions } from 'react-native';
+import LottieView from 'lottie-react-native';
+
+const windowWidth = Dimensions.get('window').width;
 
 export default class NewsScreen extends Component {
   constructor() {
     super();
     this.state = {
-      article_: '',
+      weather: '',
     };
   }
 
-  getNews = async () => {
+  getWeather = async () => {
     //change latitude and longitude
-    var url = 'https://saurav.tech/NewsAPI/top-headlines/category/business/in.json';
+    var url = 'https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139';
     return fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
+      .then(response => response.json())
+      .then(responseJson => {
         this.setState({
-          article_: responseJson,
+          weather: responseJson,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
   };
 
   componentDidMount = () => {
-    this.getNews();
+    this.getWeather();
   };
 
   render() {
-    if (this.state.article_ === '') {
+    if (this.state.weather === '') {
       return (
-        <View>
-          <Text>Loading....</Text>{
-          }
+        <View style={styles.container}>
+          <Text>Loading...</Text>
         </View>
       );
     } else {
       return (
-        <View style={{ padding: 10, margin: 10 }}>
-
-          <View style={{ backgroundColor: '#af1', margin: 10, padding: 10 }}>
-            <Image source={{ uri: this.state.article_.articles[0].urlToImage }} />
-            <Text style={{ padding: 10, margin: 10 }}>{this.state.article_.articles[0].title}</Text>
-            <Text style={{ fontSize: 10 }}>{this.state.article_.articles[0].description}</Text>
+        <View style={styles.container}>
+          <View style={styles.subContainer}>
+            <Text style={styles.title}>
+              Weather Forecast
+            </Text>
+            <Image
+              style={styles.cloudImage}
+              source={require('./clouds.png')}
+            />
+            <View style={styles.textContainer}>
+            <Text style={{ fontSize: 18}}>
+              {this.state.weather.main.temp}&deg;C
+            </Text>
+            <Text style={{ fontSize: 18, margin:10}}>
+              humidity : {this.state.weather.main.humidity}
+            </Text>
+            <Text style={{fontSize: 18}}>
+              {this.state.weather.weather[0].description}
+            </Text>
           </View>
-
-          <View style={{ backgroundColor: '#af1', margin: 10, padding: 10 }}>
-            <Image source={{ uri: this.state.article_.articles[1].urlToImage }} />
-            <Text style={{ padding: 10, margin: 10 }}>{this.state.article_.articles[1].title}</Text>
-            <Text style={{ fontSize: 10 }}>{this.state.article_.articles[1].description}</Text>
           </View>
-
-          <View style={{ backgroundColor: '#af1', margin: 10, padding: 10 }}>
-            <Image source={{ uri: this.state.article_.articles[2].urlToImage }} />
-            <Text style={{ padding: 10, margin: 10 }}>{this.state.article_.articles[2].title}</Text>
-            <Text style={{ fontSize: 10 }}>{this.state.article_.articles[2].description}</Text>
-          </View>
-
-          <View style={{ backgroundColor: '#af1', margin: 10, padding: 10 }}>
-            <Image source={{ uri: this.state.article_.articles[3].urlToImage }} />
-            <Text style={{ padding: 10, margin: 10 }}>{this.state.article_.articles[3].title}</Text>
-            <Text style={{ fontSize: 10 }}>{this.state.article_.articles[3].description}</Text>
-          </View>
-
-          <View style={{ backgroundColor: '#af1', margin: 10, padding: 10 }}>
-            <Image source={{ uri: this.state.article_.articles[4].urlToImage }} />
-            <Text style={{ padding: 10, margin: 10 }}>{this.state.article_.articles[4].title}</Text>
-            <Text style={{ fontSize: 10 }}>{this.state.article_.articles[4].description}</Text>
-          </View>
-
         </View>
-      )
+      );
     }
   }
 }

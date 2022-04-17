@@ -19,7 +19,7 @@ const CustomDrawer = props => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: '#fff' }}
+        contentContainerStyle={{ height: 800 }}
       >
         <ImageBackground
           // source={require('../assets/images/bg.jpeg')}
@@ -35,39 +35,41 @@ const CustomDrawer = props => {
           // source={require('../assets/images/bg11.png')}
           //   source={require('../assets/images/bg12.jpg')}
           //   source={require('../assets/images/bg13.jpg')}
-          style={{ height: 210, top: -10 }}>
+          style={{ left: -12, width: 350, height: 250, top: -5, borderColor: 'white', borderRadius: 10 }}>
           {/* <Image
             source={require('../assets/images/logo.png')}
             style={{height: 80, width: 80, borderRadius: 40, marginBottom: 10}}
           /> */}
 
         </ImageBackground>
-        <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 10 }}>
+        <View style={{ flex: 1, backgroundColor: '#202020', paddingTop: 50 }}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-        <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
+      <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#202020' }}>
+        {/* <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Ionicons name="share-social-outline" size={22} />
+            <Ionicons name="share-social-outline" size={22} color={'white'} />
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Fira Code iScript',
                 marginLeft: 5,
+                color: 'white'
               }}>
               Tell a Friend
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Ionicons name="exit-outline" size={22} />
+            <Ionicons name="exit-outline" size={22} color={'white'} />
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Fira Code iScript',
                 marginLeft: 5,
+                color: 'white'
               }}>
               Sign Out
             </Text>
