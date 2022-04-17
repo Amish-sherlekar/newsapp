@@ -1,68 +1,71 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ScrollView, FlatList, Dimensions } from 'react-native';
-import LottieView from 'lottie-react-native';
-
-const windowWidth = Dimensions.get('window').width;
+import { Text, View, FlatList, Image, TouchableOpacity, Linking } from 'react-native';
+// import LottieView from 'lottie';
 
 export default class NewsScreen extends Component {
   constructor() {
     super();
     this.state = {
-      weather: '',
+      article: '',
     };
   }
 
-  getWeather = async () => {
+  getNews = async () => {
     //change latitude and longitude
-    var url = 'https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139';
+    var url = 'https://saurav.tech/NewsAPI/top-headlines/category/general/in.json';
     return fetch(url)
-      .then(response => response.json())
-      .then(responseJson => {
+      .then((response) => response.json())
+      .then((responseJson) => {
         this.setState({
-          weather: responseJson,
+          article: responseJson,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   componentDidMount = () => {
-    this.getWeather();
+    this.getNews();
   };
 
   render() {
-    if (this.state.weather === '') {
-      return (
-        <View style={styles.container}>
-          <Text>Loading...</Text>
+    if(this.state.article === ''){
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Loading....</Text>
+        {/* <LottieView
+          autoPlay
+          style={{
+            width: 400,
+            height: 400,
+            backgroundColor: '#eee',
+          }}
+          source={require('../assets/animation/98579-junction-loader.json')}
+        /> */}
+      </View>
+    );
+    }else{
+      return(
+        <View style={{ backgroundColor: '#d3d3d3' }}>
+          <FlatList
+            key={this.state.article.articles.title}
+            keyExtractor={(item, index) => index.toString()}
+            data={this.state.article.articles}
+            renderItem={({ item }) => (
+              <View style={{ flex: 1, flexDirection: 'column', margin: 10, padding: 10, backgroundColor: '#d3d3', borderRadius: 30 }}>
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(item.url)}
+                >
+                  <Image source={{ uri: item.urlToImage }} style={{ width: 350, height: 200, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} /> ?
+                  <Text style={{ fontSize: 20, color: 'white' }}>{item.title}</Text>
+                  <Text style={{ fontSize: 15, color: 'white' }}>{item.description}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
         </View>
-      );
-    } else {
-      return (
-        <View style={styles.container}>
-          <View style={styles.subContainer}>
-            <Text style={styles.title}>
-              Weather Forecast
-            </Text>
-            <Image
-              style={styles.cloudImage}
-              source={require('./clouds.png')}
-            />
-            <View style={styles.textContainer}>
-            <Text style={{ fontSize: 18}}>
-              {this.state.weather.main.temp}&deg;C
-            </Text>
-            <Text style={{ fontSize: 18, margin:10}}>
-              humidity : {this.state.weather.main.humidity}
-            </Text>
-            <Text style={{fontSize: 18}}>
-              {this.state.weather.weather[0].description}
-            </Text>
-          </View>
-          </View>
-        </View>
-      );
+      )
     }
   }
 }
