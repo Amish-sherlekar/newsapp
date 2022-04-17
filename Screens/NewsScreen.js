@@ -57,7 +57,7 @@ export default class NewsScreen extends Component {
                 <TouchableOpacity
                   onPress={() => Linking.openURL(item.url)}
                 >
-                  <Image source={{ uri: item.urlToImage }} style={{ width: 350, height: 200, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} /> ?
+                  <Image source={{ uri: item.urlToImage }} style={{ width: 350, height: 200, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} />
                   <Text style={{ fontSize: 20, color: 'white' }}>{item.title}</Text>
                   <Text style={{ fontSize: 15, color: 'white' }}>{item.description}</Text>
                 </TouchableOpacity>
